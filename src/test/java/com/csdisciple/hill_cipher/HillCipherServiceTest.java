@@ -15,15 +15,41 @@ public class HillCipherServiceTest {
 
     @Test
     public void testDecrypt(){
-        int encryptedChar = service.encryptCharToNumber('a');
+        int encryptedChar = service.encryptCharToNumber('g');
 
-        assertEquals('z', service.decryptNumberToChar(26));
+        assertEquals('g', service.decryptNumberToChar(encryptedChar));
     }
 
     @Test
     public void encryptCharToNumber(){
-        int encryptedChar = service.encryptCharToNumber('a');
-        int encryptedCharTwo = service.encryptCharToNumber('a');
-        assertEquals(encryptedChar, 1);
+        int encryptedChar = service.encryptCharToNumber('d');
+        assertEquals(4, encryptedChar);
+    }
+
+    @Test
+    public void getRandomKey(){
+        int keyLength = 3;
+        String randomKey = service.generateRandomKey(keyLength);
+        assertEquals(Math.pow(keyLength, 2), randomKey.length());
+    }
+
+    @Test
+    public void convertKeyToIntMatrix(){
+        int keyLength = 3;
+        String randomKey = service.generateRandomKey(keyLength);
+        double[][] matrix = service.convertKeyToIntMatrix(randomKey);
+
+        assertEquals(keyLength, matrix.length);
+
+
+    }
+
+    @Test
+    public void convertMessageToIntMatrix(){
+        int keyLength = 3;
+        String randomKey = service.generateRandomKey(keyLength);
+        double[][] matrix = service.convertMessageToIntMatrix(randomKey);
+
+        assertEquals(keyLength*keyLength, matrix[0].length);
     }
 }

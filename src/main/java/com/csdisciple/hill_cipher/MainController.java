@@ -19,9 +19,8 @@ public class MainController {
     }
 
     @GetMapping(value = "/decrypt", produces = "application/json")
-    public String getEncryptedMessageNumber(@RequestParam String message) {
-        return calculationService.decrypt(message);
-
+    public String getEncryptedMessageNumber(@RequestParam String key, String message) {
+        return calculationService.decrypt(key, message);
     }
 
 }
