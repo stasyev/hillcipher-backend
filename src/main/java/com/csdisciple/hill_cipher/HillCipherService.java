@@ -49,7 +49,7 @@ public class HillCipherService {
         return letter - 'a' + 1;
     }
     public char decryptNumberToChar(int number){
-        return number > 0 && number < 27 ? Character.valueOf((char)(number + 64)) : null;
+        return number > 0 && number < 27 ? Character.valueOf((char)(number + 'a' - 1)) : null;
     }
 
     // inverse of the encrypted key matrix mod 26 * the encrypted message matrix

@@ -16,13 +16,14 @@ public class HillCipherServiceTest {
     @Test
     public void testDecrypt(){
         int encryptedChar = service.encryptCharToNumber('a');
-        assertEquals('A', service.decryptNumberToChar(encryptedChar));
+
+        assertEquals('z', service.decryptNumberToChar(26));
     }
 
     @Test
     public void encryptCharToNumber(){
         int encryptedChar = service.encryptCharToNumber('a');
         int encryptedCharTwo = service.encryptCharToNumber('a');
-        assertEquals(encryptedChar, encryptedCharTwo);
+        assertEquals(encryptedChar, 1);
     }
 }
