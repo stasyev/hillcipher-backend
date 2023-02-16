@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 @RestController
 @RequestMapping("/cipher")
-public class MainController {
+class MainController {
     @Autowired
     private HillCipherService calculationService;
     GsonBuilder builder = new GsonBuilder();
