@@ -33,9 +33,9 @@ public class HillCipherService {
         String messageLowerCase = message.toLowerCase(Locale.ROOT);
         key = generateRandomKey(messageLength);
         keyMatrix = convertKeyToMatrix(key);
-        messageMatrix = convertMessageToIntMatrix(messageLowerCase);
+        messageMatrix = convertMessageToMatrix(messageLowerCase);
         encryptedKeyMatrix = keyMatrix.times(messageMatrix);
-        encryptedKeyMatrix = mod26OfMatrix(encryptedKeyMatrix); // returning a matrix with zeros
+        encryptedKeyMatrix = mod26Matrix(encryptedKeyMatrix); // returning a matrix with zeros
         encryptedMessage = toString(encryptedKeyMatrix);
 
 
@@ -62,10 +62,15 @@ public class HillCipherService {
     public String decrypt(String message) {
         // get inverse keyMatrix mod 26
         // multiply by message
+
+        messageMatrix = convertMessageToMatrix(message);
+        encryptedKeyMatrix = keyMatrix.times(messageMatrix);
+        encryptedKeyMatrix = mod26Matrix(encryptedKeyMatrix);
+
+
         Matrix matrix = keyMatrix;
-        // 1/determinant(matrix) * adjugate(matrix) or transpose(matrix)
         matrix = matrix.inverse();
-        matrix = mod26OfMatrix(matrix);
+        matrix = mod26Matrix(matrix);
         matrix = matrix.times(encryptedKeyMatrix);
 
 
@@ -81,7 +86,7 @@ public class HillCipherService {
 //        return ans;
 //    }
 
-    public Matrix mod26OfMatrix(Matrix matrix) {
+    public Matrix mod26Matrix(Matrix matrix) {
         Matrix ans = new Matrix(matrix.getRowDimension(), matrix.getColumnDimension());
         for (int row = 0; row < matrix.getRowDimension(); row++) {
             for (int col = 0; col < matrix.getColumnDimension(); col++) {
@@ -119,7 +124,7 @@ public class HillCipherService {
         return keyMatrix;
     }
 
-    public Matrix convertMessageToIntMatrix(String message) {
+    public Matrix convertMessageToMatrix(String message) {
         Matrix matrix = new Matrix(message.length(), 1);
         for (int i = 0; i < matrix.getRowDimension(); i++) {
             matrix.set(i, 0, encryptCharToNumber(message.charAt(i)));
